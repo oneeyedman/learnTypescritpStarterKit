@@ -1,0 +1,27 @@
+{
+	"name": "learn-typescript-starter-kit",
+	"version": "0.0.0",
+	"description": "Gulp setup to learn Typescript",
+	"dependencies": {
+		"browser-sync": "^2.26.3",
+		"eslint": "^4.19.1",
+		"gulp-plumber": "*",
+		"gulp-sourcemaps": "*",
+		"gulp-uglify-es": "^1.0.4",
+		"gulp": "^4",
+		"gulp-notify": "*",
+		"gulp-typescript": "*",
+    "typescript": "*"
+	},
+	"scripts": {
+		"start": "gulp",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com:oneeyedman/learnTypescritpStarterKit.git"
+	},
+	"author": "Oneeyedman",
+	"license": "MIT",
+	"homepage": "https://github.com/oneeyedman/learnTypescritpStarterKit"
+}
