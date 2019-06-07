@@ -10,8 +10,7 @@
 		"gulp-uglify-es": "^1.0.4",
 		"gulp": "^4",
 		"gulp-notify": "*",
-		"gulp-typescript": "*",
-    "typescript": "*"
+		"gulp-typescript": "^2.10.0"
 	},
 	"scripts": {
 		"start": "gulp",

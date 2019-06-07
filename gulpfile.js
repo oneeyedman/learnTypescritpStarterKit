@@ -1,46 +1,59 @@
 'use strict';
 
-const browserSync  = require('browser-sync');
-const gulp         = require('gulp');
+const { src, dest, series, watch } = require('gulp');
+const browserSync = require('browser-sync').create();
 const notify       = require('gulp-notify');
 const plumber      = require('gulp-plumber');
-const sourcemaps   = require('gulp-sourcemaps');
 const ts           = require('gulp-typescript');
 
 
 
 // > Dev tasks
 // >> Concatenate JS files with sourcemaps
-gulp.task('scripts', function(done){
-  gulp.src('./js/*.ts')
-    .pipe(sourcemaps.init())
+const scripts = () => {
+  return src('./js/*.ts')
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     .pipe(ts({
-      noImplicitAny: true
+      noImplicitAny: true,
+      out: 'main.js'
     }))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./js/'))
-    .pipe(browserSync.reload({ stream:true }));
-  done();
-});
-
-
-
-// > Watchers + BrowserSync server
-gulp.task('default', gulp.series(['scripts'], function(done) {
-  browserSync.init({
-    server : {
-      baseDir: './'
-    }
-  });
-  gulp.watch('./js/*.ts', gulp.series(['scripts']));
-  done();
-}));
+    .pipe(dest('js/'));
+};
 
 
 
 // > Recarga las ventanas del navegador
-gulp.task('bs-reload', function (done) {
+const bsReload = cb => {
   browserSync.reload();
-  done();
+  cb();
+};
+
+const defaultTasks = series(scripts);
+
+
+const go = series(defaultTasks, cb => {
+  console.log('yay');
+  browserSync.init({
+    files: 'index.html',
+    server : {
+      baseDir: './'
+    },
+    online: false,
+    watchOptions : {
+      ignored : 'node_modules/*',
+      ignoreInitial : true
+    }
+  });
+  watch('js/**/*.ts', series(scripts, bsReload));
+
+  cb();
 });
+
+
+
+module.exports = {
+  scripts,
+  go
+}
+
+module.exports.default = defaultTasks;
