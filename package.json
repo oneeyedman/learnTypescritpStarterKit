@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"description": "Gulp setup to learn Typescript",
 	"dependencies": {
-		"browser-sync": "^2.26.3",
+		"browser-sync": "^2.27.10",
 		"eslint": "^4.19.1",
 		"gulp-plumber": "*",
 		"gulp-sourcemaps": "*",
